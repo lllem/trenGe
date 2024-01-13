@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon {
+  height: 1em;
+  // width: 1em;
+  display: inline-block;
+}
+
+.max-w-screen-xs {
+  max-width: 460px;
+  width: 100%;
+}
