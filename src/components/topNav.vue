@@ -2,7 +2,7 @@
   <div class="wrapper container max-w-screen-sm mx-auto py-1 text-white px-4">
     <nav class="flex gap-x-4 items-center">
       <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-      <RouterLink to="/" class="font-bold text-lg py-3">trenge</RouterLink>
+      <RouterLink to="/" class="font-bold text-lg py-3">tren<spap class="text-red-400">Ge</spap></RouterLink>
 
       <!-- <RouterLink to="/end" class="text-sm py-3 ms-auto">End</RouterLink> -->
 

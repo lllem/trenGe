@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+$bg-dark: #271b6f;
+
+.bg-dark {
+  background-color: $bg-dark;
+}
+
 .icon {
   height: 1em;
   // width: 1em;

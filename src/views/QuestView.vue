@@ -1,28 +1,53 @@
 <template>
-  <div class="quest">
-    <titleEl class="text-white">{{ quest.title }}</titleEl>
+  <div class="quest text-white text-center">
 
-    <div
+    <titleEl class="text-lg my-3">{{ quest.title }}</titleEl>
+
+    <header class="quest__header text-center">
+
+      <progressCircle
+      :progress="progress"
+      class="quest__icon mx-auto my-4"
+      >
+        <template v-if="done">
+          <div class="flex flex-col">
+            <span class="block">{{ Math.round(correctQty / quest.quest.length * 100) }}%</span>
+            <span class="text-sm font-semibold opacity-50">Результат</span>
+          </div>
+        </template>
+        <template v-else>
+          <div class="flex flex-col">
+            <span class="block">{{ count + 1 }}/{{ quest.quest.length }}</span>
+            <span class="text-sm font-semibold opacity-50">Вопрос</span>
+          </div>
+        </template>
+
+      </progressCircle>
+
+
+    </header>
+
+    <template
     v-if="!done"
     >
-      <titleEl class="text-white">Вопрос {{ count + 1 }} из {{ quest.quest.length }}</titleEl>
+      <!-- <h3 class="text-white uppercase mb-6-- text-center text-sm font-semibold opacity-50">Вопрос {{ count + 1 }} из {{ quest.quest.length }}</h3> -->
 
       <questItem
-      class="my-5"
+      class="mb-5"
       :questItem="quest.quest[count]"
       @done="doneItem"
       @next="nextItem"
       />
-    </div>
+    </template>
 
-    <div class="px-4 py-6 shadow rounded-xl bg-indigo-100 text-center" v-else>
-      <titleEl>Готово</titleEl>
+    <template v-else>
+      <!-- <titleEl>{{ Math.round(correctQty / quest.quest.length * 100) }}%</titleEl> -->
 
-      <titleEl>Вы ответили правильно на {{ correctQty }} из {{ quest.quest.length }}</titleEl>
+      <p class="text-xl font-bold">Правильных ответов:<br>{{ correctQty }} из {{ quest.quest.length }}</p>
 
 
       <btnEl to="/" class="my-6">На главную</btnEl>
-    </div>
+    </template>
 
   </div>
 </template>
@@ -30,6 +55,7 @@
 <script>
 // import { mapGetters } from 'vuex'
 import questItem from '@/components/quest/questItem.vue'
+import progressCircle from '@/components/progressCircle.vue'
 
 export default {
   props: {
@@ -46,6 +72,7 @@ export default {
 
   components: {
     questItem,
+    progressCircle,
   },
 
   methods: {
@@ -55,8 +82,9 @@ export default {
     },
 
     nextItem() {
-      if ((this.count + 1) < this.quest.quest.length) this.count++
-      else this.done = true
+      // if ((this.count + 1) < this.quest.quest.length) this.count++
+      this.count++
+      if (this.count >= this.quest.quest.length) this.done = true
     },
   },
 
@@ -72,6 +100,14 @@ export default {
 
     questDone() {
       return (this.count + 1) === this.quest.length
+    },
+
+    progress() {
+      // если в процессе ответов на вопросы - показываем прогресс
+      if (this.count < this.quest.quest.length) return (this.count + 1) / this.quest.quest.length
+
+      // если ответы кончились - показываем результат
+      return this.correctQty / this.quest.quest.length
     },
   },
 }

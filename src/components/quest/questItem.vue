@@ -1,7 +1,7 @@
 <template>
   <contentWrapper class="quest-item">
 
-    <h2 class="font-bold text-xl text-indigo-900 text-center">{{ questItem.question }}</h2>
+    <h2 class="font-bold text-xl text-white text-center">{{ questItem.question }}</h2>
 
     <div>
       <questItemTab
@@ -17,30 +17,35 @@
 
     </div>
 
-    <footer class="text-center">
-      <btnEl
-      class="w-full"
-      :class="{
-        'hidden': (selected === false) || show
-      }"
-      @click="done"
-      >Ответить</btnEl>
-    </footer>
-
-    <footer v-if="show" class="text-center">
-      <p v-if="correct" class="text-xl font-bold text-green-900 mb-4">Верный ответ</p>
-      <p v-else-if="!correct" class="text-xl font-bold text-red-900 mb-4">Неверный ответ</p>
+    <footer v-if="show" class="text-center mb-3">
+      <p v-if="correct" class="text-xl font-bold text-green-400 mb-4">
+        <CheckIcon class="icon"/> Верный ответ
+      </p>
+      <p v-else-if="!correct" class="text-xl font-bold text-red-400 mb-4">
+        <XMarkIcon class="icon"/> Неверный ответ
+      </p>
 
       <btnEl
       class="w-full"
       @click="next"
-      >Дальше</btnEl>
+      >Следующий вопрос</btnEl>
+    </footer>
+
+    <footer v-if="show" class="text-center bg-white rounded-xl text-black p-4 text-start flex flex-col gap-y-4">
+      <p class="uppercase opacity-50 font-semibold text-center">Подробнее</p>
+
+      <img src="/assets/img/ge-flag.jpg" alt="">
+
+      <div class="my-4">
+        <p class="mb-3">Столица — Тбилиси. Государственный язык — грузинский.</p>
+        <p class="mb-3">Грузия является представительной демократией, управляемой как унитарная парламентская республика[30]. Это развивающаяся страна с очень высоким индексом человеческого развития. Страна является членом таких международных организаций, как Совет Европы, ОБСЕ, Евроконтроль, ЕБРР, ОЧЭС, ГУАМ и Всемирной торговой организации. Государство проводит ряд демократических и экономических реформ, направленных на интеграцию в Европейский Союз и НАТО. С 14 декабря 2023 Грузия является официальным кандидатом на вступление в ЕС.</p>
+      </div>
     </footer>
   </contentWrapper>
 </template>
 
 <script>
-// import { CheckIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { CheckIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import questItemTab from '@/components/quest/questItemTab.vue'
 
 export default {
@@ -50,8 +55,8 @@ export default {
 
   components: {
     questItemTab,
-    // CheckIcon,
-    // XMarkIcon,
+    CheckIcon,
+    XMarkIcon,
   },
 
   data() {

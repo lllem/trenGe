@@ -1,5 +1,5 @@
 <template>
-  <div class="app bg-indigo-900">
+  <div class="app bg-dark">
     <topNav/>
 
     <main class="app__main container max-w-screen-xs mx-auto py-5 px-4">
