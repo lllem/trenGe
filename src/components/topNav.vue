@@ -1,18 +1,18 @@
 <template>
-  <div class="wrapper container max-w-screen-sm mx-auto py-1 text-white px-4">
+  <div class="wrapper container max-w-screen-xs mx-auto py-1 text-white px-4">
     <nav class="flex gap-x-4 items-center">
-      <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-      <RouterLink to="/" class="font-bold text-lg py-3">tren<spap class="text-red-400">Ge</spap></RouterLink>
 
-      <!-- <RouterLink to="/end" class="text-sm py-3 ms-auto">End</RouterLink> -->
-
-      <!-- {{ lang }} -->
+      <RouterLink to="/" class="font-bold text-lg py-3"><span class="text-red-400">tren</span>Ge</RouterLink>
 
       <div class="flex gap-4 ms-auto">
         <button
         @click="changeLang(lang)"
-        class="font-bold"
-        v-for="lang in ['RU', 'GE']"
+        class="font-bold uppercase border-b-2 text-sm"
+        :class="{
+          'border-sky-500': this.$i18n.locale === lang,
+          'border-sky-900 opacity-50': this.$i18n.locale !== lang,
+        }"
+        v-for="lang in ['ru', 'ge']"
         :key="lang"
         >
           {{ lang }}
@@ -29,14 +29,13 @@ import { mapGetters } from 'vuex'
 
 export default {
   data() {
-    return {
-      lang: 'RU' // RU || GE
-    }
+    return {}
   },
 
   methods: {
     changeLang(lang) {
       this.lang = lang
+      this.$i18n.locale = lang
     },
   },
 

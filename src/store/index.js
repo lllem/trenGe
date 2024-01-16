@@ -1,34 +1,9 @@
 import { createStore } from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 
 export default createStore({
   state: {
-    questsList: [
-      {
-        translit: 'training_history',
-        title: 'Тренировка по истории',
-      },
-      {
-        translit: 'training_law',
-        title: 'Тренировка по основам права',
-      },
-      {
-        translit: 'training_lang',
-        title: 'Тренировка по грузинскому',
-      },
-      {
-        translit: 'trainer_history',
-        title: 'Тренажёр по истории',
-      },
-      {
-        translit: 'trainer_law',
-        title: 'Тренажёр по основам права',
-      },
-      {
-        translit: 'trainer_lang',
-        title: 'Тренажёр по грузинскому',
-      },
-    ],
+    questsList: [], // загружается с сервера
 
     quests: {
       training_history: {
@@ -1891,6 +1866,25 @@ export default createStore({
 
   },
 
+  mutations: {
+    updateQuestList(state, payload) {
+      state.questsList = payload
+    }
+  },
+
+  actions: {
+    async loadQuestList() {
+      await axios
+        .get('./api/index.json')
+        .then(response => {
+          this.commit('updateQuestList', response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
+
   getters: {
     questsList: state => state.questsList,
 
@@ -1916,10 +1910,6 @@ export default createStore({
       return outputObj
     },
   },
-
-  mutations: {},
-
-  actions: {},
 
   modules: {},
 })

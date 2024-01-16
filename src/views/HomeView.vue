@@ -18,7 +18,7 @@
       <titleEl class="text-xl font-bold"><span class="text-cyan-300">Тесты</span> и <span class="text-cyan-300">Тренажёр по тестам</span><br>на гражданство Грузии</titleEl>
     </header>
 
-    <section class="grid gap-4 grid-cols-3 my-5">
+    <section class="grid gap-4 grid-cols-2 my-5">
 
       <router-link
       v-for="link in questsList"
@@ -26,7 +26,7 @@
       :to="`quest/${ link.translit }`"
       class="bg-blue-600 text-white py-4 px-2 text-sm font-semibold rounded-lg text-center"
       >
-        {{ link.title }}
+        {{ link.title[$i18n.locale] }}
       </router-link>
 
     </section>
@@ -38,8 +38,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import btnEl from '@/components/elements/btnEl.vue'
-
 import progressCircle from '@/components/progressCircle.vue'
 
 export default {
@@ -48,7 +46,6 @@ export default {
   },
 
   components: {
-    btnEl,
     progressCircle,
   },
 
@@ -57,6 +54,10 @@ export default {
       'questsList',
     ]),
   },
+
+  mounted() {
+    this.$store.dispatch('loadQuestList')
+  }
 }
 </script>
 

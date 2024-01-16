@@ -52,7 +52,7 @@ export default {
 <style lang="scss">
 .progress-circle {
   position: relative;
-  width: 7.5rem;
+  width: 6.5rem;
 
   svg {
     position: absolute;
