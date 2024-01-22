@@ -12,9 +12,35 @@ import contentWrapper from './components/contentWrapper.vue'
 
 const app = createApp(App)
 
+export const messages = {
+  ru: {
+    question: 'Вопрос',
+    wrong: 'Неверный ответ',
+    correct: 'Верный ответ',
+    nextQuestion: 'Следующий вопрос',
+    toMain: 'На главную',
+    result: 'Результаты',
+    details: 'Подробнее',
+    testsAndQuests: 'Тесты и упражнения',
+    forGeorgianCitizen: 'для гражданства Грузии',
+  },
+  ge: {
+    question: 'კითხვა',
+    wrong: 'არა სცორი პასუხი',
+    correct: 'სცორი პასუხი',
+    nextQuestion: 'შემდეგი შეკითხვა',
+    toMain: 'მთავარზე',
+    result: 'შედეგები',
+    details: 'ახსნა',
+    testsAndQuests: 'ტესტები და სავარჯიშო',
+    forGeorgianCitizen: 'საქართველოს მოქალაქეობისთვის',
+  },
+}
+
 const i18n = createI18n({
   locale: 'ru', // set locale
   fallbackLocale: 'ge', // set fallback locale
+  messages,
 })
 
 app

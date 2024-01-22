@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <!-- <main class="bg-white p-4 rounded-xl"> -->
 
@@ -15,19 +12,36 @@
         </div>
       </progressCircle>
 
-      <titleEl class="text-xl font-bold"><span class="text-cyan-300">Тесты</span> и <span class="text-cyan-300">Тренажёр по тестам</span><br>на гражданство Грузии</titleEl>
+      <titleEl class="text-xl font-bold">
+        {{ $t('testsAndQuests') }}<br>
+        {{ $t('forGeorgianCitizen') }}
+      </titleEl>
     </header>
 
     <section class="grid gap-4 grid-cols-2 my-5">
 
-      <router-link
-      v-for="link in questsList"
-      :key="link"
-      :to="`quest/${ link.translit }`"
-      class="bg-blue-600 text-white py-4 px-2 text-sm font-semibold rounded-lg text-center"
-      >
-        {{ link.title[$i18n.locale] }}
-      </router-link>
+      <template v-for="link in questsList">
+        <router-link
+        v-if="link.type === 'test'"
+        :to="`quest/${ link.translit }`"
+        class="bg-blue-600 text-white py-4 px-2 text-sm font-semibold rounded-lg text-center flex flex-col gap-2"
+        :key="link"
+        >
+          <ListBulletIcon class="icon text-xl text-sky-300" />
+          <span>{{ link.title[$i18n.locale] }}</span>
+        </router-link>
+
+        <a
+        v-if="link.type === 'pdf'"
+        :href="`/files/${ link.file }`"
+        class="bg-indigo-600 text-white py-4 px-2 text-sm font-semibold rounded-lg text-center flex flex-col gap-2"
+        :key="link"
+        >
+          <DocumentArrowDownIcon class="icon text-xl text-sky-300" />
+          <span>{{ link.title[$i18n.locale] }}</span>
+        </a>
+
+      </template>
 
     </section>
 
@@ -39,6 +53,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import progressCircle from '@/components/progressCircle.vue'
+import { DocumentArrowDownIcon, ListBulletIcon } from '@heroicons/vue/24/solid'
 
 export default {
   props: {
@@ -47,6 +62,8 @@ export default {
 
   components: {
     progressCircle,
+    DocumentArrowDownIcon,
+    ListBulletIcon,
   },
 
   computed: {

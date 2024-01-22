@@ -6,16 +6,25 @@
 
       <div class="flex gap-4 ms-auto">
         <button
-        @click="changeLang(lang)"
-        class="font-bold uppercase border-b-2 text-sm"
+        @click="changeLang(lang.translit)"
+        class="font-bold uppercase border-b-2 text-sm transition"
         :class="{
-          'border-sky-500': this.$i18n.locale === lang,
-          'border-sky-900 opacity-50': this.$i18n.locale !== lang,
+          'border-sky-500': this.$i18n.locale === lang.translit,
+          'border-sky-900 opacity-50 hover:opacity-75': this.$i18n.locale !== lang.translit,
         }"
-        v-for="lang in ['ru', 'ge']"
-        :key="lang"
+        v-for="lang in [
+          {
+            title: 'РУ',
+            translit: 'ru',
+          },
+          {
+            title: 'ქა',
+            translit: 'ge',
+          }
+        ]"
+        :key="lang.translit"
         >
-          {{ lang }}
+          {{ lang.title }}
         </button>
       </div>
 

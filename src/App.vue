@@ -6,7 +6,7 @@
       <RouterView />
     </main>
 
-    <footer class="app__footer container max-w-screen-xs mx-auto py-4 border-t text-center text-white opacity-50">footer</footer>
+    <!-- <footer class="app__footer container max-w-screen-xs mx-auto py-4 border-t text-center text-white opacity-50">footer</footer> -->
   </div>
 </template>
 

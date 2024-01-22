@@ -15,11 +15,6 @@ const router = createRouter({
       name: 'quest',
       component: () => import('../views/QuestView.vue'),
     },
-    {
-      path: '/end',
-      name: 'end',
-      component: () => import('../views/EndView.vue')
-    },
   ]
 })
 

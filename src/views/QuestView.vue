@@ -1,7 +1,7 @@
 <template>
-  <div class="quest text-white text-center">
+  <div class="quest text-white text-center" v-if="!!quest">
 
-    <titleEl class="text-lg my-3">{{ quest.title }}</titleEl>
+    <titleEl class="text-lg my-3">{{ quest.title[$i18n.locale] }}</titleEl>
 
     <header class="quest__header text-center">
 
@@ -12,18 +12,18 @@
         <template v-if="done">
           <div class="flex flex-col">
             <span class="block">{{ Math.round(correctQty / quest.quest.length * 100) }}%</span>
-            <span class="text-sm font-semibold opacity-50">Результат</span>
+            <span class="text-sm font-semibold opacity-50">{{ $t('result') }}</span>
           </div>
         </template>
+
         <template v-else>
           <div class="flex flex-col">
             <span class="block">{{ count + 1 }}/{{ quest.quest.length }}</span>
-            <span class="text-sm font-semibold opacity-50">Вопрос</span>
+            <span class="text-sm font-semibold opacity-50">{{ $t('question') }}</span>
           </div>
         </template>
 
       </progressCircle>
-
 
     </header>
 
@@ -41,15 +41,15 @@
     </template>
 
     <template v-else>
-      <!-- <titleEl>{{ Math.round(correctQty / quest.quest.length * 100) }}%</titleEl> -->
 
       <p class="text-xl font-bold">Правильных ответов:<br>{{ correctQty }} из {{ quest.quest.length }}</p>
 
-
-      <btnEl to="/" class="my-6">На главную</btnEl>
+      <btnEl to="/" class="my-6">{{ $t('toMain') }}</btnEl>
     </template>
 
   </div>
+
+  <div class="text-white" v-else>loading...</div>
 </template>
 
 <script>
@@ -104,11 +104,17 @@ export default {
 
     progress() {
       // если в процессе ответов на вопросы - показываем прогресс
+      if (!this.quest) return 0
+
       if (this.count < this.quest.quest.length) return (this.count + 1) / this.quest.quest.length
 
       // если ответы кончились - показываем результат
       return this.correctQty / this.quest.quest.length
     },
+  },
+
+  mounted() {
+    this.$store.dispatch('loadQuest', this.id)
   },
 }
 </script>
